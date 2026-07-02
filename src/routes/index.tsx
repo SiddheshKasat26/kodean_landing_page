@@ -1,31 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
 import {
   ArrowRight,
   BookOpen,
   Brain,
   Check,
   ChevronRight,
-  Code2,
   Compass,
   FileText,
+  GitBranch,
   Layers,
   Lightbulb,
+  PenLine,
   Sparkles,
   Target,
   X,
 } from "lucide-react";
-import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/")({
   component: Landing,
 });
 
+const WAITLIST_FORM_URL = "https://forms.gle/zBMqzP7ozLRUoHj89";
+
 function Landing() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans antialiased">
-      <Toaster theme="dark" position="top-center" />
       <Navbar />
       <main>
         <Hero />
@@ -33,8 +32,8 @@ function Landing() {
         <Solution />
         <Features />
         <Comparison />
+        <MessageSection />
         <Waitlist />
-
       </main>
       <Footer />
     </div>
@@ -48,7 +47,7 @@ function Navbar() {
     { label: "Vision", href: "#vision" },
     { label: "How it Works", href: "#solution" },
     { label: "Features", href: "#features" },
-    { label: "Waitlist", href: "#waitlist" },
+    { label: "Message", href: "#message" },
   ];
 
   return (
@@ -56,7 +55,7 @@ function Navbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <a href="#" className="flex items-center gap-2">
           <LogoMark />
-          <span className="text-[15px] font-semibold tracking-tight">KODEAN</span>
+          <span className="text-[15px] font-semibold tracking-tight">kodean</span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
@@ -70,7 +69,9 @@ function Navbar() {
           ))}
         </nav>
         <a
-          href="#waitlist"
+          href={WAITLIST_FORM_URL}
+          target="_blank"
+          rel="noreferrer"
           className="inline-flex items-center gap-1.5 rounded-full border border-border-strong bg-surface px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-surface-2"
         >
           Join Waitlist
@@ -103,24 +104,29 @@ function Hero() {
         style={{ background: "var(--gradient-hero)" }}
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-grid" />
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 px-6 pt-20 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:pt-24">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 pt-12 pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pt-16 lg:pb-16">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/70 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            An AI mentor, not another AI generator
+            AI writes code. Great engineers understand it.
           </div>
-          <h1 className="mt-6 font-display text-[44px] font-semibold leading-[1.05] tracking-tight sm:text-[56px] lg:text-[64px]">
-            Understand every line of{" "}
+          <h1 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-tight sm:text-[52px] lg:text-[62px]">
+            Stop shipping code
+            <br />
+            you can&apos;t explain.
+            <br />
             <span className="text-gradient">AI-generated code.</span>
           </h1>
-          <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-muted-foreground">
-            AI can generate code in seconds. Understanding it takes much longer.
-            KODEAN helps developers build real understanding and confidence —
-            instead of blindly copying code.
+          <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-muted-foreground">
+            AI can build the first draft in seconds. Weeks later, teams still pay
+            the cost of not understanding it. kodean turns generated code into
+            engineering clarity you can defend, extend, and trust.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href="#waitlist"
+              href={WAITLIST_FORM_URL}
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.02]"
               style={{ background: "var(--gradient-brand)", boxShadow: "var(--shadow-glow)" }}
             >
@@ -131,7 +137,7 @@ function Hero() {
               href="#vision"
               className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-2"
             >
-              See Vision
+              See the story
               <ChevronRight className="h-4 w-4" />
             </a>
           </div>
@@ -146,7 +152,7 @@ function Hero() {
 
 function ExtensionMockup() {
   return (
-    <div className="relative">
+    <div className="relative float-slow">
       <div
         aria-hidden
         className="absolute -inset-8 -z-10 rounded-[36px] opacity-60 blur-3xl"
@@ -168,7 +174,7 @@ function ExtensionMockup() {
               className="h-1.5 w-1.5 rounded-full"
               style={{ background: "var(--gradient-brand)" }}
             />
-            KODEAN
+            kodean
           </div>
         </div>
 
@@ -208,10 +214,15 @@ function ExtensionMockup() {
                 Prevents expensive work from firing on every keystroke.
               </p>
             </div>
-            <button className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-border-strong bg-surface px-3 py-2 text-[12px] font-medium text-foreground transition-colors hover:bg-surface-2">
-              Confidence check
+            <a
+              href={WAITLIST_FORM_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-border-strong bg-surface px-3 py-2 text-[12px] font-medium text-foreground transition-colors hover:bg-surface-2"
+            >
+              Join waitlist
               <ArrowRight className="h-3 w-3" />
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -250,28 +261,56 @@ function CodeLine({
 
 function Problem() {
   const steps = [
-    { label: "AI", desc: "Generates code", icon: Sparkles },
-    { label: "Copy", desc: "Ctrl + C", icon: Layers },
-    { label: "Paste", desc: "Ship it", icon: Code2 },
+    {
+      label: "AI generated code",
+      desc: "You get a working answer fast and momentum feels great.",
+      icon: Sparkles,
+    },
+    {
+      label: "Copy and ship",
+      desc: "It passes. The feature moves. No time to go deeper.",
+      icon: Layers,
+    },
+    {
+      label: "A few weeks later",
+      desc: "A bug appears. The logic is unfamiliar and fragile.",
+      icon: GitBranch,
+    },
+    {
+      label: "Confidence drops",
+      desc: "\"I can ship this, but I cannot explain it.\"",
+      icon: X,
+      danger: true,
+    },
   ];
   return (
-    <section id="vision" className="relative border-t border-border/60 py-20">
+    <section id="vision" className="relative border-t border-border/60 py-16 lg:py-18">
       <div className="mx-auto max-w-6xl px-6">
         <SectionEyebrow>The Problem</SectionEyebrow>
         <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          AI is making developers faster.
+          Fast shipping feels good.
           <br />
-          <span className="text-muted-foreground">Not necessarily better.</span>
+          <span className="text-muted-foreground">Not understanding it doesn&apos;t.</span>
         </h2>
         <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
-          The default workflow with AI is copy, paste, and move on. Days later,
-          nobody remembers why the code works — or what would break if it changed.
+          The new default workflow is obvious: prompt, paste, move on. The hidden
+          cost appears later, when the code is yours but the reasoning isn&apos;t.
         </p>
 
-        <div className="mt-14 flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
+        <div className="relative mt-12 grid grid-cols-1 gap-4 before:absolute before:left-4 before:top-3 before:bottom-3 before:w-px before:bg-border/80 lg:grid-cols-2 lg:gap-6 lg:before:left-[50%] lg:before:-translate-x-1/2">
           {steps.map((s, i) => (
-            <div key={s.label} className="flex flex-1 items-center gap-3">
-              <div className="glass-card relative flex-1 rounded-2xl p-5">
+            <div
+              key={s.label}
+              className={`relative pl-10 lg:pl-0 ${
+                i % 2 === 0 ? "lg:pr-12" : "lg:pl-12 lg:pt-12"
+              }`}
+            >
+              <span
+                className={`absolute left-2 top-6 z-10 h-4 w-4 rounded-full border-2 lg:left-auto ${
+                  i % 2 === 0 ? "lg:right-[-8px]" : "lg:left-[-8px]"
+                } ${s.danger ? "border-destructive bg-destructive/20" : "border-primary bg-primary/20"}`}
+              />
+              <div className="glass-card group relative rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-border-strong hover:bg-surface/70">
                 <div className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-strong bg-surface-2 text-foreground">
                   <s.icon className="h-4 w-4" />
                 </div>
@@ -281,48 +320,15 @@ function Problem() {
                 <div className="mt-1 text-base font-semibold text-foreground">
                   {s.label}
                 </div>
-                <div className="text-xs text-muted-foreground">{s.desc}</div>
+                <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</div>
               </div>
-              <ChevronRight className="hidden h-5 w-5 shrink-0 text-muted-foreground/50 lg:block" />
             </div>
           ))}
-
-          {/* Distinct "Forget" card */}
-          <div
-            className="relative flex-1 overflow-hidden rounded-2xl p-5"
-            style={{
-              background:
-                "linear-gradient(180deg, oklch(0.65 0.22 25 / 0.10), oklch(0.65 0.22 25 / 0.02))",
-              border: "1px solid oklch(0.65 0.22 25 / 0.35)",
-              boxShadow: "0 20px 60px -30px oklch(0.65 0.22 25 / 0.5)",
-            }}
-          >
-            <div
-              aria-hidden
-              className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-30 blur-3xl"
-              style={{ background: "oklch(0.65 0.22 25 / 0.6)" }}
-            />
-            <div
-              className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-lg text-white"
-              style={{ background: "oklch(0.65 0.22 25 / 0.85)" }}
-            >
-              <X className="h-4 w-4" />
-            </div>
-            <div className="text-[11px] uppercase tracking-wider text-destructive/80">
-              Two weeks later
-            </div>
-            <div className="mt-1 text-base font-semibold text-foreground">
-              Forget
-            </div>
-            <div className="text-xs text-muted-foreground">
-              Why does this even work?
-            </div>
-          </div>
         </div>
 
-        <blockquote className="glass-card mx-auto mt-12 max-w-2xl rounded-2xl p-6 text-center">
+        <blockquote className="glass-card mx-auto mt-10 max-w-2xl rounded-2xl p-6 text-center">
           <p className="font-display text-lg leading-snug text-foreground sm:text-xl">
-            "I shipped this last month. I have no idea why it works."
+            &quot;I shipped this last month. I still can&apos;t explain why it works.&quot;
           </p>
           <div className="mt-2 text-xs text-muted-foreground">
             — every developer who's been honest, at least once
@@ -336,148 +342,89 @@ function Problem() {
 /* ---------------------------- SOLUTION ---------------------------- */
 
 function Solution() {
-  const flow = [
+  const journey = [
     {
-      title: "Highlight",
-      desc: "Select any snippet of AI-generated code — right where you found it.",
+      title: "Highlight code",
+      desc: "Start with the exact snippet you copied from AI.",
       icon: Layers,
     },
     {
-      title: "Explain",
-      desc: "Get a precise, line-by-line explanation in plain language.",
+      title: "Understand",
+      desc: "Read what every line does in plain engineering language.",
       icon: BookOpen,
     },
     {
-      title: "Understand",
-      desc: "Learn the why behind the code — patterns, tradeoffs, and context.",
+      title: "Think",
+      desc: "See why this approach works and when it breaks.",
       icon: Lightbulb,
     },
     {
       title: "Practice",
-      desc: "Short, targeted questions turn passive reading into active recall.",
+      desc: "Answer short checks to prove understanding, not memory.",
       icon: Target,
     },
     {
       title: "Remember",
-      desc: "Save concepts to your notes and revisit them on the right cadence.",
+      desc: "Capture concepts so they stay usable in real projects.",
       icon: FileText,
     },
     {
-      title: "Confidence",
-      desc: "Ship code you can actually explain, defend, and change later.",
+      title: "Build confidence",
+      desc: "Ship code you can explain, debug, and evolve with confidence.",
       icon: Check,
     },
   ];
-  const [active, setActive] = useState(0);
-  const current = flow[active];
   return (
-    <section id="solution" className="relative border-t border-border/60 py-20">
+    <section id="solution" className="relative border-t border-border/60 py-16 lg:py-18">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionEyebrow>The Solution</SectionEyebrow>
+        <SectionEyebrow>The Learning Journey</SectionEyebrow>
         <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          Meet KODEAN.
-          <br />
-          <span className="text-gradient">The learning layer for AI development.</span>
+          kodean is where generated code
+          <br className="hidden sm:block" /> becomes understanding.
         </h2>
         <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
-          A single, focused workflow that turns any AI-generated snippet into
-          durable understanding.
+          Not another code generator. A focused flow that turns fast output into
+          durable engineering confidence.
         </p>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-[280px_1fr]">
-          <ol className="glass-card flex flex-col rounded-2xl p-2">
-            {flow.map((step, i) => {
-              const isActive = i === active;
-              return (
-                <li key={step.title}>
-                  <button
-                    onClick={() => setActive(i)}
-                    className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors ${
-                      isActive
-                        ? "bg-surface-2 text-foreground"
-                        : "text-muted-foreground hover:bg-surface/60 hover:text-foreground"
-                    }`}
-                  >
-                    <span
-                      className={`grid h-7 w-7 shrink-0 place-items-center rounded-md font-mono text-[11px] ${
-                        isActive
-                          ? "text-primary-foreground"
-                          : "border border-border-strong bg-background text-muted-foreground"
-                      }`}
-                      style={
-                        isActive ? { background: "var(--gradient-brand)" } : undefined
-                      }
-                    >
-                      0{i + 1}
-                    </span>
-                    <span className="text-sm font-medium">{step.title}</span>
-                    {isActive && (
-                      <ChevronRight className="ml-auto h-4 w-4 text-foreground/80" />
-                    )}
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-
-          <div className="glass-card relative overflow-hidden rounded-2xl p-8">
-            <div
-              aria-hidden
-              className="absolute -right-24 -top-24 h-64 w-64 rounded-full opacity-25 blur-3xl"
-              style={{ background: "var(--gradient-brand)" }}
-            />
-            <div className="flex items-center gap-3">
-              <div
-                className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-primary-foreground"
-                style={{ background: "var(--gradient-brand)" }}
+        <div className="mt-12 grid grid-cols-1 gap-4">
+          <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {journey.map((step, i) => (
+              <li
+                key={step.title}
+                className={`glass-card group relative overflow-hidden rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-border-strong ${
+                  i % 2 !== 0 ? "lg:translate-y-8" : ""
+                }`}
               >
-                <current.icon className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                  Step {active + 1} of {flow.length}
-                </div>
-                <h3 className="font-display text-2xl font-semibold text-foreground">
-                  {current.title}
-                </h3>
-              </div>
-            </div>
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/90">
-              {current.desc}
-            </p>
-
-            <div className="mt-8 flex items-center gap-1.5">
-              {flow.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActive(i)}
-                  aria-label={`Go to step ${i + 1}`}
-                  className={`h-1.5 flex-1 rounded-full transition-colors ${
-                    i <= active ? "" : "bg-border"
-                  }`}
-                  style={
-                    i <= active ? { background: "var(--gradient-brand)" } : undefined
-                  }
+                <div
+                  aria-hidden
+                  className="absolute -right-16 -top-16 h-36 w-36 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-25"
+                  style={{ background: "var(--gradient-brand)" }}
                 />
-              ))}
-            </div>
-
-            <div className="mt-4 flex justify-between text-[11px] font-mono text-muted-foreground">
-              <button
-                onClick={() => setActive((a) => Math.max(0, a - 1))}
-                disabled={active === 0}
-                className="disabled:opacity-40"
-              >
-                ← Prev
-              </button>
-              <button
-                onClick={() => setActive((a) => Math.min(flow.length - 1, a + 1))}
-                disabled={active === flow.length - 1}
-                className="disabled:opacity-40"
-              >
-                Next →
-              </button>
-            </div>
+                <div className="mb-4 flex items-center justify-between">
+                  <span
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-primary-foreground"
+                    style={{ background: "var(--gradient-brand)" }}
+                  >
+                    <step.icon className="h-4 w-4" />
+                  </span>
+                  <span className="font-mono text-[11px] text-muted-foreground">0{i + 1}</span>
+                </div>
+                <h3 className="text-lg font-semibold text-foreground">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-2 flex justify-center">
+            <a
+              href={WAITLIST_FORM_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-2"
+            >
+              Start learning with kodean
+              <ArrowRight className="h-4 w-4" />
+            </a>
           </div>
         </div>
       </div>
@@ -491,53 +438,53 @@ function Features() {
   const features = [
     {
       icon: BookOpen,
-      title: "Explain",
-      desc: "Understand what every line does — in plain, precise language.",
+      title: "See the logic",
+      desc: "Understand each line so you can reason before you refactor.",
       accent: "oklch(0.72 0.17 250)",
     },
     {
       icon: Lightbulb,
-      title: "Why",
-      desc: "Learn why the code exists, not just what it says.",
+      title: "Know the why",
+      desc: "Learn tradeoffs, assumptions, and intent behind the snippet.",
       accent: "oklch(0.78 0.16 85)",
     },
     {
       icon: Compass,
-      title: "Project context",
-      desc: "See why this implementation fits this specific project.",
+      title: "Think in context",
+      desc: "Connect generated code to your architecture and constraints.",
       accent: "oklch(0.70 0.18 165)",
     },
     {
       icon: Target,
-      title: "Confidence check",
-      desc: "Test yourself after learning with short, targeted questions.",
+      title: "Practice actively",
+      desc: "Quick checks verify understanding before confidence is assumed.",
       accent: "oklch(0.66 0.19 275)",
     },
     {
-      icon: FileText,
-      title: "Notes",
-      desc: "Save concepts to your personal knowledge base for future revision.",
+      icon: PenLine,
+      title: "Capture patterns",
+      desc: "Save reusable ideas you can apply in future decisions.",
       accent: "oklch(0.68 0.19 340)",
     },
     {
       icon: Brain,
-      title: "Long-term recall",
-      desc: "Revisit ideas on the right cadence so they actually stick.",
+      title: "Remember longer",
+      desc: "Turn one-off explanations into lasting engineering knowledge.",
       accent: "oklch(0.72 0.17 30)",
     },
   ];
   return (
-    <section id="features" className="border-t border-border/60 py-20">
+    <section id="features" className="border-t border-border/60 py-16 lg:py-18">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionEyebrow>Features</SectionEyebrow>
+        <SectionEyebrow>Outcomes</SectionEyebrow>
         <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          A focused toolkit for real understanding.
+          Learn faster, forget less, build with confidence.
         </h2>
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
             <div
               key={f.title}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-surface/40 p-6 transition-all hover:-translate-y-0.5 hover:border-border-strong hover:bg-surface/70"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-surface/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-border-strong hover:bg-surface/70"
             >
               <div
                 aria-hidden
@@ -553,7 +500,7 @@ function Features() {
               >
                 <f.icon className="h-4.5 w-4.5" strokeWidth={2} />
               </div>
-              <h3 className="text-[17px] font-semibold text-foreground">
+              <h3 className="text-[18px] font-semibold text-foreground">
                 {f.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -574,28 +521,30 @@ function Features() {
 /* ---------------------------- COMPARISON ---------------------------- */
 
 function Comparison() {
-  const traditional = ["Generates code", "Answers questions", "Moves on"];
+  const traditional = ["Generates quickly", "Optimizes for output", "Leaves understanding behind"];
   const kodean = [
-    "Teaches code",
-    "Builds understanding",
-    "Builds confidence",
-    "Creates long-term knowledge",
+    "Makes code explainable",
+    "Builds engineering judgment",
+    "Improves long-term confidence",
+    "Grows reusable knowledge",
   ];
   return (
-    <section className="border-t border-border/60 py-20">
+    <section className="border-t border-border/60 py-16 lg:py-18">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionEyebrow>Why KODEAN</SectionEyebrow>
+        <SectionEyebrow>Why kodean</SectionEyebrow>
         <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          AI writes code. KODEAN teaches it.
+          AI writes code.
+          <br />
+          kodean builds engineers.
         </h2>
 
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="glass-card rounded-2xl p-8">
             <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Traditional AI
+              Typical workflow
             </div>
             <div className="mt-1 font-display text-2xl font-semibold text-foreground">
-              Generate & move on
+              Ship now, debug understanding later
             </div>
             <ul className="mt-6 space-y-3">
               {traditional.map((t) => (
@@ -619,10 +568,10 @@ function Comparison() {
               style={{ background: "var(--gradient-brand)" }}
             />
             <div className="text-xs font-medium uppercase tracking-wider text-accent">
-              KODEAN
+              kodean
             </div>
             <div className="mt-1 font-display text-2xl font-semibold text-foreground">
-              Learn as you build
+              Learn while you build
             </div>
             <ul className="mt-6 space-y-3">
               {kodean.map((t) => (
@@ -644,138 +593,79 @@ function Comparison() {
   );
 }
 
+/* ---------------------------- MESSAGE ---------------------------- */
 
-/* ---------------------------- WAITLIST ---------------------------- */
-
-function Waitlist() {
-  const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
-
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    if (!data.get("email")) return;
-    setLoading(true);
-
-    const GFORM_URL =
-      "https://docs.google.com/forms/d/e/1FAIpQLSelvCoYi2TDxhg9cJ2S22zHxfjIc0lsdvhZJZHveyj6_xmSfg/formResponse";
-    const payload = new FormData();
-    payload.append("entry.1024178277", String(data.get("name") ?? ""));
-    payload.append("entry.97894596", String(data.get("email") ?? ""));
-    payload.append("entry.2144566332", String(data.get("challenge") ?? ""));
-
-    try {
-      await fetch(GFORM_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: payload,
-      });
-      setDone(true);
-      toast.success("You're on the list. We'll be in touch soon.");
-    } catch {
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
-
+function MessageSection() {
   return (
-    <section id="waitlist" className="border-t border-border/60 py-20">
-      <div className="mx-auto max-w-3xl px-6">
-        <div className="text-center">
-          <SectionEyebrow center>Early Access</SectionEyebrow>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-            Join Early Access.
+    <section id="message" className="border-t border-border/60 py-16 lg:py-18">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="glass-card relative overflow-hidden rounded-3xl p-8 text-center sm:p-12">
+          <div
+            aria-hidden
+            className="absolute -right-24 -top-24 h-64 w-64 rounded-full opacity-35 blur-3xl"
+            style={{ background: "var(--gradient-brand)" }}
+          />
+          <SectionEyebrow center>Brand Message</SectionEyebrow>
+          <h2 className="mx-auto mt-5 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+            Every line has a reason.
+            <br />
+            kodean helps you discover it.
           </h2>
-          <p className="mt-4 text-[17px] text-muted-foreground">
-            Be among the first developers to try KODEAN. No spam — just launch updates.
+          <p className="mx-auto mt-5 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
+            Understand. Think. Remember. Grow. The future belongs to engineers
+            who can explain their systems, not only ship them.
           </p>
+          <a
+            href={WAITLIST_FORM_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.02]"
+            style={{ background: "var(--gradient-brand)", boxShadow: "var(--shadow-glow)" }}
+          >
+            Join waitlist
+            <ArrowRight className="h-4 w-4" />
+          </a>
         </div>
-
-        <form
-          onSubmit={onSubmit}
-          className="glass-card mt-12 rounded-2xl p-6 sm:p-8"
-        >
-          {done ? (
-            <div className="flex flex-col items-center gap-3 py-6 text-center">
-              <div
-                className="grid h-12 w-12 place-items-center rounded-full text-primary-foreground"
-                style={{ background: "var(--gradient-brand)" }}
-              >
-                <Check className="h-5 w-5" />
-              </div>
-              <h3 className="font-display text-xl font-semibold">You're on the list.</h3>
-              <p className="text-sm text-muted-foreground">
-                We'll email you as soon as early access opens.
-              </p>
-            </div>
-          ) : (
-            <div className="grid gap-5">
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                <Field label="Name" name="name" placeholder="Ada Lovelace" />
-                <Field
-                  label="Email"
-                  name="email"
-                  type="email"
-                  placeholder="you@domain.com"
-                  required
-                />
-              </div>
-              <label className="grid gap-2">
-                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  What's the biggest challenge you face when learning AI-generated code?
-                </span>
-                <textarea
-                  name="challenge"
-                  rows={3}
-                  className="w-full resize-none rounded-xl border border-border-strong bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30"
-                  placeholder="I paste it and it works — until it doesn't…"
-                />
-              </label>
-              <button
-                type="submit"
-                disabled={loading}
-                className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.01] disabled:opacity-70"
-                style={{ background: "var(--gradient-brand)", boxShadow: "var(--shadow-glow)" }}
-              >
-                {loading ? "Joining…" : "Join Waitlist"}
-                {!loading && <ArrowRight className="h-4 w-4" />}
-              </button>
-            </div>
-          )}
-        </form>
       </div>
     </section>
   );
 }
 
-function Field({
-  label,
-  name,
-  type = "text",
-  placeholder,
-  required,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  placeholder?: string;
-  required?: boolean;
-}) {
+
+/* ---------------------------- WAITLIST ---------------------------- */
+
+function Waitlist() {
   return (
-    <label className="grid gap-2">
-      <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-        {label}
-      </span>
-      <input
-        name={name}
-        type={type}
-        required={required}
-        placeholder={placeholder}
-        className="w-full rounded-xl border border-border-strong bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30"
-      />
-    </label>
+    <section id="waitlist" className="border-t border-border/60 py-16 lg:py-18">
+      <div className="mx-auto max-w-3xl px-6">
+        <div className="text-center">
+          <SectionEyebrow center>Early Access</SectionEyebrow>
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+            Understand your code before production teaches you.
+          </h2>
+          <p className="mt-4 text-[17px] text-muted-foreground">
+            Join developers choosing understanding over dependency.
+          </p>
+        </div>
+
+        <div className="glass-card mt-10 rounded-2xl p-8 text-center sm:p-10">
+          <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground">
+            Click below to join the waitlist. We&apos;ll share launch updates and
+            early access details.
+          </p>
+          <a
+            href={WAITLIST_FORM_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.01]"
+            style={{ background: "var(--gradient-brand)", boxShadow: "var(--shadow-glow)" }}
+          >
+            Join Waitlist
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -787,10 +677,10 @@ function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 sm:flex-row">
         <div className="flex items-center gap-2">
           <LogoMark />
-          <span className="text-sm font-semibold tracking-tight">KODEAN</span>
+          <span className="text-sm font-semibold tracking-tight">kodean</span>
         </div>
         <p className="text-center text-sm text-muted-foreground sm:text-right">
-          Built for developers who believe AI should teach, not just generate.
+          Understanding is the ultimate developer tool.
         </p>
       </div>
     </footer>
