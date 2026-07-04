@@ -30,7 +30,7 @@ function Landing() {
         <Hero />
         <Problem />
         <Solution />
-        <Features />
+        {/* <Features /> */}
         <Comparison />
         <MessageSection />
         <Waitlist />
@@ -259,7 +259,7 @@ function CodeLine({
 
 const CONVERSATION_SCENES = [
   {
-    otherSpeaker: "Engineering Manager",
+    otherSpeaker: "Manager",
     otherMessage: "Can you quickly update this function?",
     selfSpeaker: "You",
     selfReply: "Sure...",
@@ -307,7 +307,7 @@ function Problem() {
         </div>
 
         <p className="mx-auto mt-12 max-w-3xl text-center font-display text-xl leading-snug text-foreground/90 sm:text-2xl">
-          &quot;Understanding your code shouldn&apos;t begin when someone asks you about it.&quot;
+          &quot;Understanding your code shouldn&apos;t begin <u>when someone asks you about it.</u>&quot;
         </p>
       </div>
     </section>
@@ -422,34 +422,34 @@ function TypingIndicator() {
 function Solution() {
   const journey = [
     {
-      title: "Highlight code",
-      desc: "Start with the exact snippet you copied from AI.",
-      icon: Layers,
+      title: "Start with curiosity",
+      desc: "Instead of moving on, pause for a moment and ask, Why does this work?",
+      icon: Brain,
     },
     {
-      title: "Understand",
-      desc: "Read what every line does in plain engineering language.",
+      title: "Understand the reasoning",
+      desc: "Learn what each line is doing, why it exists, and how it fits into the bigger picture.",
       icon: BookOpen,
     },
     {
-      title: "Think",
-      desc: "See why this approach works and when it breaks.",
+      title: "Connect the ideas",
+      desc: "Turn unfamiliar syntax into concepts you'll recognize the next time you see them.",
       icon: Lightbulb,
     },
     {
-      title: "Practice",
-      desc: "Answer short checks to prove understanding, not memory.",
+      title: "Learn from mistakes",
+      desc: "Discover the common pitfalls before they become bugs in your own code.",
       icon: Target,
     },
     {
-      title: "Remember",
-      desc: "Capture concepts so they stay usable in real projects.",
+      title: "Practice what you learned",
+      desc: "Answer a few quick questions to check that you've understood the idea, not just read it.",
       icon: FileText,
     },
     {
-      title: "Build confidence",
-      desc: "Ship code you can explain, debug, and evolve with confidence.",
-      icon: Check,
+      title: "Keep growing",
+      desc: "Leave every explanation knowing a little more than before, and let those small wins compound into lasting confidence.",
+      icon: Layers,
     },
   ];
   return (
@@ -457,12 +457,11 @@ function Solution() {
       <div className="mx-auto max-w-6xl px-6">
         <SectionEyebrow>The Learning Journey</SectionEyebrow>
         <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          kodean is where generated code
-          <br className="hidden sm:block" /> becomes understanding.
+          Every explanation leaves you 
+          <br className="hidden sm:block" /> knowing a little more than before.
         </h2>
         <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
-          Not another code generator. A focused flow that turns fast output into
-          durable engineering confidence.
+          Learning doesn't happen all at once. It happens one snippet, one question, and one moment of understanding at a time.
         </p>
 
         <div className="mt-12 grid grid-cols-1 gap-4">
@@ -500,7 +499,7 @@ function Solution() {
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-2"
             >
-              Start learning with kodean
+              Start learning with <i><b>kodean</b></i>
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>
@@ -512,117 +511,118 @@ function Solution() {
 
 /* ---------------------------- FEATURES ---------------------------- */
 
-function Features() {
-  const features = [
-    {
-      icon: BookOpen,
-      title: "See the logic",
-      desc: "Understand each line so you can reason before you refactor.",
-      accent: "oklch(0.72 0.17 250)",
-    },
-    {
-      icon: Lightbulb,
-      title: "Know the why",
-      desc: "Learn tradeoffs, assumptions, and intent behind the snippet.",
-      accent: "oklch(0.78 0.16 85)",
-    },
-    {
-      icon: Compass,
-      title: "Think in context",
-      desc: "Connect generated code to your architecture and constraints.",
-      accent: "oklch(0.70 0.18 165)",
-    },
-    {
-      icon: Target,
-      title: "Practice actively",
-      desc: "Quick checks verify understanding before confidence is assumed.",
-      accent: "oklch(0.66 0.19 275)",
-    },
-    {
-      icon: PenLine,
-      title: "Capture patterns",
-      desc: "Save reusable ideas you can apply in future decisions.",
-      accent: "oklch(0.68 0.19 340)",
-    },
-    {
-      icon: Brain,
-      title: "Remember longer",
-      desc: "Turn one-off explanations into lasting engineering knowledge.",
-      accent: "oklch(0.72 0.17 30)",
-    },
-  ];
-  return (
-    <section id="features" className="border-t border-border/60 py-16 lg:py-18">
-      <div className="mx-auto max-w-6xl px-6">
-        <SectionEyebrow>Outcomes</SectionEyebrow>
-        <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          Learn faster, forget less, build with confidence.
-        </h2>
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <div
-              key={f.title}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-surface/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-border-strong hover:bg-surface/70"
-            >
-              <div
-                aria-hidden
-                className="absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-30"
-                style={{ background: f.accent }}
-              />
-              <div
-                className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-xl text-white"
-                style={{
-                  background: `linear-gradient(135deg, ${f.accent}, oklch(0.55 0.18 275))`,
-                  boxShadow: `0 8px 24px -12px ${f.accent}`,
-                }}
-              >
-                <f.icon className="h-4.5 w-4.5" strokeWidth={2} />
-              </div>
-              <h3 className="text-[18px] font-semibold text-foreground">
-                {f.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {f.desc}
-              </p>
-              <div className="mt-5 flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                Learn more
-                <ArrowRight className="h-3.5 w-3.5" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+// function Features() {
+//   const features = [
+//     {
+//       icon: BookOpen,
+//       title: "See the logic",
+//       desc: "Understand each line so you can reason before you refactor.",
+//       accent: "oklch(0.72 0.17 250)",
+//     },
+//     {
+//       icon: Lightbulb,
+//       title: "Know the why",
+//       desc: "Learn tradeoffs, assumptions, and intent behind the snippet.",
+//       accent: "oklch(0.78 0.16 85)",
+//     },
+//     {
+//       icon: Compass,
+//       title: "Think in context",
+//       desc: "Connect generated code to your architecture and constraints.",
+//       accent: "oklch(0.70 0.18 165)",
+//     },
+//     {
+//       icon: Target,
+//       title: "Practice actively",
+//       desc: "Quick checks verify understanding before confidence is assumed.",
+//       accent: "oklch(0.66 0.19 275)",
+//     },
+//     {
+//       icon: PenLine,
+//       title: "Capture patterns",
+//       desc: "Save reusable ideas you can apply in future decisions.",
+//       accent: "oklch(0.68 0.19 340)",
+//     },
+//     {
+//       icon: Brain,
+//       title: "Remember longer",
+//       desc: "Turn one-off explanations into lasting engineering knowledge.",
+//       accent: "oklch(0.72 0.17 30)",
+//     },
+//   ];
+//   return (
+//     <section id="features" className="border-t border-border/60 py-16 lg:py-18">
+//       <div className="mx-auto max-w-6xl px-6">
+//         <SectionEyebrow>Outcomes</SectionEyebrow>
+//         <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+//           Learn faster, forget less, build with confidence.
+//         </h2>
+//         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+//           {features.map((f) => (
+//             <div
+//               key={f.title}
+//                 className="group relative overflow-hidden rounded-2xl border border-border bg-surface/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-border-strong hover:bg-surface/70"
+//             >
+//               <div
+//                 aria-hidden
+//                 className="absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-30"
+//                 style={{ background: f.accent }}
+//               />
+//               <div
+//                 className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-xl text-white"
+//                 style={{
+//                   background: `linear-gradient(135deg, ${f.accent}, oklch(0.55 0.18 275))`,
+//                   boxShadow: `0 8px 24px -12px ${f.accent}`,
+//                 }}
+//               >
+//                 <f.icon className="h-4.5 w-4.5" strokeWidth={2} />
+//               </div>
+//               <h3 className="text-[18px] font-semibold text-foreground">
+//                 {f.title}
+//               </h3>
+//               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+//                 {f.desc}
+//               </p>
+//               <div className="mt-5 flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
+//                 Learn more
+//                 <ArrowRight className="h-3.5 w-3.5" />
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 /* ---------------------------- COMPARISON ---------------------------- */
 
 function Comparison() {
-  const traditional = ["Generates quickly", "Optimizes for output", "Leaves understanding behind"];
+  const traditional = ["You find or generate code that solves it", "You adjust it until it runs", "You move on once it works", "Some parts still feel unclear"];
   const kodean = [
-    "Makes code explainable",
-    "Builds engineering judgment",
-    "Improves long-term confidence",
-    "Grows reusable knowledge",
+    "Highlight the code you want to understand",
+    "Get a structured explanation in plain language",
+    "Explore why it works, not just what it does",
+    "Leave the snippet knowing more than when you found it",
   ];
   return (
     <section className="border-t border-border/60 py-16 lg:py-18">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionEyebrow>Why kodean</SectionEyebrow>
+        <SectionEyebrow>Why <i><b>kodean</b></i>?</SectionEyebrow>
         <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          AI writes code.
+          AI helps you move faster.
           <br />
-          kodean builds engineers.
+          <i>kodean</i> helps you understand as you go.
         </h2>
 
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="glass-card rounded-2xl p-8">
             <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Typical workflow
+              A FAMILIAR WAY OF WORKING
             </div>
             <div className="mt-1 font-display text-2xl font-semibold text-foreground">
-              Ship now, debug understanding later
+              Working code.
+Missing context.
             </div>
             <ul className="mt-6 space-y-3">
               {traditional.map((t) => (
@@ -646,10 +646,10 @@ function Comparison() {
               style={{ background: "var(--gradient-brand)" }}
             />
             <div className="text-xs font-medium uppercase tracking-wider text-accent">
-              kodean
+              WITH <i><b>kodean</b></i>
             </div>
             <div className="mt-1 font-display text-2xl font-semibold text-foreground">
-              Learn while you build
+              Understanding happens as you build
             </div>
             <ul className="mt-6 space-y-3">
               {kodean.map((t) => (
