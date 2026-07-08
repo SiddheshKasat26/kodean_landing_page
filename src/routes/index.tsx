@@ -830,6 +830,10 @@ function Footer() {
 
           <p className="mt-2 text-xs text-muted-foreground/70">
             © {new Date().getFullYear()} <b><i>kodean</i></b>. All rights reserved.
+            {" · "}
+            <a href="/privacy" className="underline underline-offset-2 hover:text-foreground">
+              Privacy
+            </a>
           </p>
         </div>
       </div>
